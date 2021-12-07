@@ -9,8 +9,8 @@ import java.util.Objects;
 @Getter
 @Setter
 public class Post {
-	private final int id;
-	private final String name;
+	private int id;
+	private String name;
 	private String description;
 	private Calendar created;
 	

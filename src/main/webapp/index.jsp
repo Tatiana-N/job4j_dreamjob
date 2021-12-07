@@ -25,7 +25,7 @@
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/post/posts.jsp">Вакансии</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/post/post.jsp">Вакансии</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/candidates/candidates.jsp">Кандидаты</a>
