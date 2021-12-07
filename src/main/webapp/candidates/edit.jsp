@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
@@ -22,32 +23,26 @@
     <title>Работа мечты</title>
 </head>
 <body>
-<%
-    String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0,"");
-    if(id != null){
-    	candidate = Store.instOf().findByIdCandidate(Integer.valueOf(id));
-    }
-%>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <% if (id==null) {%>
-                Новый кандидат.
-                <% } else  {%>
-                Редактирование кандидата
-                <%}%>
+                <c:if test="${candidate.id  == null}">
+                    <h2> Новый кандидат. </h2>
+                </c:if>
+                <c:if test="${candidate.id  != null}">
+                    <h2> Редактирование кандидата. </h2>
+                </c:if>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>"  method="post">
+                <form action="<c:url value="/candidates.do?id=${candidate.id}"/>" method="post">
                     <div class="form-group">
-                        <label>Имя</label>
-                        <label>
-                            <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
-                        </label>
+                        <label>Ф.И.О.</label>
+                        <input name="nName" type="text" class="form-control" value="<c:out value="${candidate.name}"/>"/>
+                        <label>Претендует на позицию</label>
+                        <input name="nPosition" type="text" class="form-control" value="<c:out value="${candidate.position}"/>"/>
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" class="btn btn-primary" style="float: right">Сохранить</button>
                 </form>
             </div>
         </div>
