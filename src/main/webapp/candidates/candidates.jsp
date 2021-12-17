@@ -1,7 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<%@ page import="ru.job4j.dream.model.Candidate" %>
-<%@ page import="java.util.Collection" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,6 +24,18 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href='<c:url value="/candidates/edit.jsp"/>'>Добавить кандидата</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href='<c:url value="/index.do"/>'>Назад</a>
+            </li>
+        </ul>
+    </div>
+</div>
 <div class="container pt-3">
 
     <div class="row">
@@ -38,6 +48,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Названия</th>
+                        <th scope="col">Фотографии</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -48,6 +59,18 @@
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
                                 <c:out value="${candidate.name}"/>
+                            </td>
+
+                            <td>
+                                <a href="<c:url value='/download?name=${candidate.id}'/>">
+                                    <img src="<c:url value='/download?name=${candidate.id}'/>" width="100px" height="100px"/></a>
+                            </td>
+                            <td>
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <a href='<c:url  value='/candidatesdelete?id=${candidate.id}&delete=true'/>'>Удалить</a>
+                                    </li>
+                                </ul>
                             </td>
                         </tr>
                     </c:forEach>

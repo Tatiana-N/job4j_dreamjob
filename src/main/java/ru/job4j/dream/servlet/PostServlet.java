@@ -16,6 +16,9 @@ public class PostServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if ("true".equals(req.getParameter("delete"))) {
+			doDelete(req, resp);
+		}
 		req.setAttribute("posts", Store.instOf().findAllPosts());
 		req.getRequestDispatcher("post/post.jsp").forward(req, resp);
 	}
@@ -23,8 +26,12 @@ public class PostServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		req.setCharacterEncoding("UTF-8");
-		Store.instOf().save(new Post(Integer.valueOf(req.getParameter("id")),
-				req.getParameter("name")));
+		Store.instOf().save(new Post(Integer.valueOf(req.getParameter("id")), req.getParameter("name")));
 		resp.sendRedirect(req.getContextPath() + "/post.do");
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Store.instOf().deletePost(Integer.parseInt(req.getParameter("id")));
 	}
 }

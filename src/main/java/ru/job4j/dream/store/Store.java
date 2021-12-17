@@ -46,11 +46,12 @@ public class Store {
 		posts.put(post.getId(), post);
 	}
 	
-	public void save(Candidate candidate) {
+	public String save(Candidate candidate) {
 		if (candidate.getId() == 0) {
 			candidate.setId(CANDIDATE_ID.incrementAndGet());
 		}
 		candidates.put(candidate.getId(), candidate);
+		return String.valueOf(candidate.getId());
 	}
 	
 	public Post findByIdPost(Integer id) {
@@ -59,5 +60,13 @@ public class Store {
 	
 	public Candidate findByIdCandidate(Integer id) {
 		return candidates.get(id);
+	}
+	
+	public void deleteCandidate(Integer id) {
+		candidates.remove(id);
+	}
+	
+	public void deletePost(Integer id) {
+		posts.remove(id);
 	}
 }

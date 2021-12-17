@@ -36,12 +36,11 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <c:if test="${candidate.id  == null}">
-                    <h2> Новая вакансия. </h2>
-                </c:if>
-                <c:if test="${candidate.id  != null}">
-                    <h2> Редактирование вакансии. </h2>
-                </c:if>
+                <% if (id == null) {%>
+                Новая вакансия.
+                <%  } else { %>
+                Редактирование вакансии.
+                <%}%>
             </div>
             <div class="card-body">
                 <form action="<%=request.getContextPath()%>/post.do?id=<%=post.getId()%>" method="post">
