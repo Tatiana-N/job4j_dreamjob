@@ -1,6 +1,7 @@
 package ru.job4j.dream.servlet;
 
 import org.apache.commons.io.FilenameUtils;
+import ru.job4j.dream.Prop;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.store.Store;
 
@@ -34,7 +35,7 @@ public class CandidateServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");
 		Store.instOf().deleteCandidate(Integer.parseInt(id));
-		File folder = new File("c:\\images\\");
+		File folder = new File(Prop.getDataFromProperties("path.to.photo"));
 		if (!folder.exists()) {
 			folder.mkdir();
 		}
