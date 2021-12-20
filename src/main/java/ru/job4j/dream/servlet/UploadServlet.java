@@ -6,7 +6,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import ru.job4j.dream.Prop;
-import ru.job4j.dream.store.Store;
+import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -32,7 +32,7 @@ public class UploadServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		req.setAttribute("images", images);
 		req.setAttribute("id", id);
-		req.setAttribute("name", Store.instOf().findByIdCandidate(Integer.parseInt(id)).getName());
+		req.setAttribute("name", MemStore.instOf().findByIdCandidate(Integer.parseInt(id)).getName());
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
 		dispatcher.forward(req, resp);
 	}

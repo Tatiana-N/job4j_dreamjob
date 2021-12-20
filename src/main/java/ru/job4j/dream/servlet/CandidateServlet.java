@@ -3,7 +3,7 @@ package ru.job4j.dream.servlet;
 import org.apache.commons.io.FilenameUtils;
 import ru.job4j.dream.Prop;
 import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.store.Store;
+import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class CandidateServlet extends HttpServlet {
 		if ("true".equals(req.getParameter("delete"))) {
 			doDelete(req, resp);
 		}
-		req.setAttribute("candidates", Store.instOf().findAllCandidates());
+		req.setAttribute("candidates", MemStore.instOf().findAllCandidates());
 		req.getRequestDispatcher("candidates/candidates.jsp").forward(req, resp);
 	}
 	
@@ -27,14 +27,14 @@ public class CandidateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		req.setCharacterEncoding("UTF-8");
 		String name = req.getParameter("name");
-		String id = Store.instOf().save(new Candidate(Integer.valueOf(req.getParameter("id")), name));
+		String id = MemStore.instOf().save(new Candidate(Integer.valueOf(req.getParameter("id")), name));
 		resp.sendRedirect(req.getContextPath() + "/upload?id=" + id);
 	}
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");
-		Store.instOf().deleteCandidate(Integer.parseInt(id));
+		MemStore.instOf().deleteCandidate(Integer.parseInt(id));
 		File folder = new File(Prop.getDataFromProperties("path.to.photo"));
 		if (!folder.exists()) {
 			folder.mkdir();
