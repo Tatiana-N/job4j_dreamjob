@@ -15,4 +15,10 @@ public interface Store {
 	String save(Candidate candidate);
 	
 	Post findByIdPost(Integer id);
+	
+	Candidate findByIdCandidate(Integer parseInt);
+	
+	void deletePost(Integer id);
+	
+	void deleteCandidate(Integer id);
 }

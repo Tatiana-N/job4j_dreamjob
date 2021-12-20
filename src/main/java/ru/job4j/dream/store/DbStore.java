@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class DbStore implements Store {
 	
@@ -142,5 +143,34 @@ public class DbStore implements Store {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public Candidate findByIdCandidate(Integer id) {
+		Optional<Candidate> candidateOptional = findAllCandidates().stream().filter(candidate -> candidate.getId() == id).findAny();
+		if (candidateOptional.isEmpty()) {
+			return null;
+		}
+		return candidateOptional.get();
+	}
+	
+	@Override
+	public void deletePost(Integer id) {
+		try (Connection cn = pool.getConnection(); PreparedStatement ps = cn.prepareStatement("DELETE FROM post WHERE id = (?)")) {
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void deleteCandidate(Integer id) {
+		try (Connection cn = pool.getConnection(); PreparedStatement ps = cn.prepareStatement("DELETE FROM candidates WHERE id = (?)")) {
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

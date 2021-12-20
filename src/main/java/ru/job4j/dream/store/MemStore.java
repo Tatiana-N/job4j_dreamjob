@@ -64,14 +64,17 @@ public class MemStore implements Store {
 		return posts.get(id);
 	}
 	
+	@Override
 	public Candidate findByIdCandidate(Integer id) {
 		return candidates.get(id);
 	}
 	
+	@Override
 	public void deleteCandidate(Integer id) {
 		candidates.remove(id);
 	}
 	
+	@Override
 	public void deletePost(Integer id) {
 		posts.remove(id);
 	}
