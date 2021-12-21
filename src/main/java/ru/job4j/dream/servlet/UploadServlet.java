@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UploadServlet extends HttpServlet {
@@ -54,6 +55,7 @@ public class UploadServlet extends HttpServlet {
 			for (FileItem item : items) {
 				if (!item.isFormField()) {
 					String extension = FilenameUtils.getExtension(item.getName()).length() > 0 ? "." + FilenameUtils.getExtension(item.getName()) : "";
+					Arrays.stream(file.listFiles()).filter(f -> FilenameUtils.removeExtension(f.getName()).equals(id)).forEach(File::delete);
 					File saveFile = new File(file + File.separator + id + extension);
 					try (FileOutputStream out = new FileOutputStream(saveFile)) {
 						out.write(item.getInputStream().readAllBytes());
