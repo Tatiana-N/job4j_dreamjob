@@ -1,15 +1,26 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.store.DbStore;
 import ru.job4j.dream.store.Store;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class DbStoreTest {
+	
+	@BeforeEach
+	public void before() {
+		Store store = DbStore.instOf();
+		Collection<Candidate> allCandidates = store.findAllCandidates();
+		Collection<Post> allPosts = store.findAllPosts();
+		allCandidates.forEach(candidate -> store.deleteCandidate(candidate.getId()));
+		allPosts.forEach(post -> store.deletePost(post.getId()));
+	}
+	
 	@Test
 	public void whenCreatePost() {
 		Store store = DbStore.instOf();
