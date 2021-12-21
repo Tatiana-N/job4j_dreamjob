@@ -5,6 +5,10 @@ import ru.job4j.dream.model.Post;
 import ru.job4j.dream.store.DbStore;
 import ru.job4j.dream.store.Store;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class DbStoreTest {
 	@Test
 	public void whenCreatePost() {
@@ -74,16 +78,17 @@ public class DbStoreTest {
 		Candidate candidate1 = new Candidate(0, "Java Candidate1");
 		Candidate candidate2 = new Candidate(0, "Java Candidate2");
 		Candidate candidate3 = new Candidate(0, "Java Candidate3");
-		String id = store.save(candidate1);
-		store.save(candidate2);
-		store.save(candidate3);
-		Candidate candidate4 = new Candidate(Integer.parseInt(id), "Java Candidate4");
-		store.save(candidate4);
-		Assertions.assertEquals(store.findAllCandidates().size(), 3);
-		Assertions.assertEquals(store.findAllCandidates().stream().filter(candidate -> candidate.getName().equals(candidate2.getName())).count(), 1);
-		Assertions.assertEquals(store.findAllCandidates().stream().filter(candidate -> candidate.getName().equals(candidate3.getName())).count(), 1);
-		Assertions.assertEquals(store.findAllCandidates().stream().filter(candidate -> candidate.getName().equals(candidate4.getName())).count(), 1);
-		Assertions.assertEquals(store.findAllCandidates().stream().filter(candidate -> candidate.getName().equals(candidate1.getName())).count(), 0);
+		int id1 = Integer.parseInt(store.save(candidate1));
+		int id2 = Integer.parseInt(store.save(candidate2));
+		int id3 = Integer.parseInt(store.save(candidate3));
+		candidate1.setId(id1);
+		candidate2.setId(id2);
+		candidate3.setId(id3);
+		Candidate candidate4 = new Candidate(id1, "Java Candidate4");
+		int id4 = Integer.parseInt(store.save(candidate4));
+		candidate4.setId(id4);
+		List<Candidate> candidateList = Arrays.asList(candidate4, candidate2, candidate3);
+		Assertions.assertEquals(store.findAllCandidates(), candidateList);
 	}
 	
 	@Test
@@ -92,15 +97,17 @@ public class DbStoreTest {
 		Post post1 = new Post(0, "Java Job1");
 		Post post2 = new Post(0, "Java Job2");
 		Post post3 = new Post(0, "Java Job3");
-		String id = store.save(post1);
+		int id1 = Integer.parseInt(store.save(post1));
 		store.save(post2);
 		store.save(post3);
-		Post post4 = new Post(Integer.parseInt(id), "Java Job4");
+		int id2 = Integer.parseInt(store.save(post2));
+		post1.setId(id1);
+		post2.setId(id2);
+		int id3 = Integer.parseInt(store.save(post3));
+		Post post4 = new Post(id1, "Java Job4");
 		store.save(post4);
-		Assertions.assertEquals(store.findAllPosts().size(), 3);
-		Assertions.assertEquals(store.findAllPosts().stream().filter(post -> post.getName().equals(post2.getName())).count(), 1);
-		Assertions.assertEquals(store.findAllPosts().stream().filter(post -> post.getName().equals(post3.getName())).count(), 1);
-		Assertions.assertEquals(store.findAllPosts().stream().filter(post -> post.getName().equals(post4.getName())).count(), 1);
-		Assertions.assertEquals(store.findAllPosts().stream().filter(post -> post.getName().equals(post1.getName())).count(), 0);
+		post3.setId(id3);
+		List<Post> posts = Arrays.asList(post4, post2, post3);
+		Assertions.assertEquals(store.findAllPosts(), posts);
 	}
 }
