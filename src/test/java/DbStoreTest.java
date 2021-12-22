@@ -3,6 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 import ru.job4j.dream.store.DbStore;
 import ru.job4j.dream.store.Store;
 
@@ -17,8 +18,10 @@ public class DbStoreTest {
 		Store store = DbStore.instOf();
 		Collection<Candidate> allCandidates = store.findAllCandidates();
 		Collection<Post> allPosts = store.findAllPosts();
+		Collection<User> allUsers = store.findAllUsers();
 		allCandidates.forEach(candidate -> store.deleteCandidate(candidate.getId()));
 		allPosts.forEach(post -> store.deletePost(post.getId()));
+		allUsers.forEach(user -> store.deleteUser(user.getId()));
 	}
 	
 	@Test
@@ -28,6 +31,31 @@ public class DbStoreTest {
 		store.save(post);
 		Post postInDb = store.findByIdPost(post.getId());
 		Assertions.assertEquals(postInDb.getName(), post.getName());
+	}
+	
+	@Test
+	public void whenEmailNotUniqUserNotSaveInDB() {
+		Store store = DbStore.instOf();
+		User user1 = new User();
+		user1.setEmail("user@mail.ru");
+		user1.setName("userName");
+		user1.setPassword("userPassword");
+		int id1 = Integer.parseInt(store.save(user1));
+		user1.setId(id1);
+		User user2 = new User();
+		user2.setEmail("user@mail.ru");
+		user2.setName("userName2");
+		user2.setPassword("userPassword2");
+		int id2 = Integer.parseInt(store.save(user2));
+		Assertions.assertEquals(id2, 0);
+		User user3 = new User();
+		user3.setEmail("user@mail.ru3");
+		user3.setName("userName3");
+		user3.setPassword("userPassword3");
+		int id3 = Integer.parseInt(store.save(user3));
+		user3.setId(id3);
+		List<User> users = Arrays.asList(user1, user3);
+		Assertions.assertEquals(store.findAllUsers(), users);
 	}
 	
 	@Test
@@ -81,6 +109,19 @@ public class DbStoreTest {
 		store.deletePost(Integer.parseInt(id));
 		Post postInDb = store.findByIdPost(candidate.getId());
 		Assertions.assertNull(postInDb);
+	}
+	
+	@Test
+	public void whenFindUserByEmail() {
+		Store store = DbStore.instOf();
+		User user = new User();
+		user.setEmail("user@mail.ru");
+		user.setName("userName");
+		user.setPassword("userPassword");
+		String id = store.save(user);
+		user.setId(Integer.parseInt(id));
+		User byEmail = store.findByEmail(user.getEmail());
+		Assertions.assertEquals(byEmail, user);
 	}
 	
 	@Test
