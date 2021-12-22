@@ -25,6 +25,18 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <c:if test="${user != null}">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"><c:out
+                        value="${user.name}"/>|Выйти</a>
+            </li>
+            </c:if>
+    </div>
+</div>
 <%
     String id = request.getParameter("id");
     Post post = new Post(0, "");
@@ -35,10 +47,11 @@
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
+
             <div class="card-header">
                 <% if (id == null) {%>
                 Новая вакансия.
-                <%  } else { %>
+                <% } else { %>
                 Редактирование вакансии.
                 <%}%>
             </div>
@@ -50,6 +63,7 @@
                             <input type="text" class="form-control" name="name" value="<%=post.getName()%>">
                         </label>
                     </div>
+                    <input type="button" class="btn btn-primary" onclick="history.back();" value="Назад"/>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>

@@ -20,6 +20,7 @@ public class CandidateServlet extends HttpServlet {
 			doDelete(req, resp);
 		}
 		req.setAttribute("candidates", DbStore.instOf().findAllCandidates());
+		req.setAttribute("user", req.getSession().getAttribute("user"));
 		req.getRequestDispatcher("candidates/candidates.jsp").forward(req, resp);
 	}
 	

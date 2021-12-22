@@ -20,6 +20,7 @@ public class PostServlet extends HttpServlet {
 			doDelete(req, resp);
 		}
 		req.setAttribute("posts", DbStore.instOf().findAllPosts());
+		req.setAttribute("user", req.getSession().getAttribute("user"));
 		req.getRequestDispatcher("post/post.jsp").forward(req, resp);
 	}
 	

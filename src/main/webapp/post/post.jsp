@@ -30,9 +30,12 @@
                 <a class="nav-link" href='<c:url value="/post/edit.jsp"/>'>Добавить вакансию</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href='<c:url value="/index.do"/>'>Назад</a>
+                <c:if test="${user != null}">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"><c:out
+                        value="${user.name}"/>|Выйти</a>
             </li>
-        </ul>
+            </c:if>
     </div>
 </div>
 
@@ -65,9 +68,11 @@
                     </c:forEach>
                     </tbody>
                 </table>
+                <input type="button" class="btn btn-primary" onclick="history.back();" value="Назад"/>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>

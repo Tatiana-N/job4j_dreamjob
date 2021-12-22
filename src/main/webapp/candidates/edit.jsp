@@ -22,6 +22,18 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <c:if test="${user != null}">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"><c:out
+                        value="${user.name}"/>|Выйти</a>
+            </li>
+            </c:if>
+    </div>
+</div>
 <%
     String id = request.getParameter("id");
     Candidate candidate = new Candidate(0,"");
@@ -48,6 +60,7 @@
                             <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
                         </label>
                     </div>
+                    <input type="button" class="btn btn-primary" onclick="history.back();" value="Назад"/>
                     <button type="submit" class="btn btn-primary">Перейти к загрузке фотографии</button>
                 </form>
             </div>

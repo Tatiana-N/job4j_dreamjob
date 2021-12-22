@@ -12,6 +12,18 @@
 </head>
 <body>
 <div class="container">
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <c:if test="${user != null}">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"><c:out
+                        value="${user.name}"/>|Выйти</a>
+            </li>
+            </c:if>
+    </div>
+</div>
+<div class="container">
     <h2>Загрузить изображение для кандидата:</h2>
     <span style="font-size: 30px; color: darkslateblue; font-family: 'Segoe Script',sans-serif; ">
         <c:out value="${name}"/>
@@ -20,6 +32,7 @@
         <div class="checkbox">
             <input type="file" name="file">
         </div>
+        <input type="button" class="btn btn-primary" onclick="history.back();" value="Назад"/>
         <button type="submit" class="btn btn-primary">Загрузить</button>
     </form>
 </div>
