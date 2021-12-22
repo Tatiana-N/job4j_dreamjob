@@ -28,6 +28,9 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/reg.do">Зарегистрироваться</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/post.do">Вакансии</a>
             </li>
             <li class="nav-item">
