@@ -23,6 +23,7 @@
 <div class="container">
     <div class="row">
         <ul class="nav">
+            <input type="button" class="btn btn-primary" onclick="history.back();" value="Назад"/>
             <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
             </li>
@@ -37,7 +38,6 @@
                     <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"><c:out value="${user.name}"/>|Выйти</a>
                 </li>
             </c:if>
-            <input type="button" class="btn btn-primary" onclick="history.back();" value="Назад"/>
         </ul>
     </div>
     <div class="row">
