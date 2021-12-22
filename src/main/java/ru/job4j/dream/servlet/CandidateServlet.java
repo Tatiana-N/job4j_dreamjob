@@ -15,7 +15,7 @@ import java.io.IOException;
 public class CandidateServlet extends HttpServlet {
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if ("true".equals(req.getParameter("delete"))) {
 			doDelete(req, resp);
 		}
@@ -25,7 +25,7 @@ public class CandidateServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		req.setCharacterEncoding("UTF-8");
 		String name = req.getParameter("name");
 		String id = DbStore.instOf().save(new Candidate(Integer.valueOf(req.getParameter("id")), name));
@@ -33,7 +33,7 @@ public class CandidateServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");
 		DbStore.instOf().deleteCandidate(Integer.parseInt(id));
 		File folder = new File(Prop.getDataFromProperties("path.to.photo"));

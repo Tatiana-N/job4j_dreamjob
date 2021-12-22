@@ -15,7 +15,7 @@ public class PostServlet extends HttpServlet {
 	 * В методу doGet мы загружаем в request список вакансий.
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if ("true".equals(req.getParameter("delete"))) {
 			doDelete(req, resp);
 		}
@@ -25,14 +25,14 @@ public class PostServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		req.setCharacterEncoding("UTF-8");
 		DbStore.instOf().save(new Post(Integer.parseInt(req.getParameter("id")), req.getParameter("name")));
 		resp.sendRedirect(req.getContextPath() + "/post.do");
 	}
 	
 	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		DbStore.instOf().deletePost(Integer.parseInt(req.getParameter("id")));
 	}
 }
