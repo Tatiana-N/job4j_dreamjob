@@ -16,6 +16,17 @@
             if ($('#exampleText').val() === '') alert($('#exampleText').attr('title'));
             return false;
         }
+        function addRow() {
+            //получаем значение поля usr
+            const name = $('#exampleName').val();
+            const surName = $('#exampleSurname').val();
+            const p = $('#exampleInput').val();
+            const text = $('#exampleText').val();
+
+            //получаем ссылку на последний элемент в таблице.
+            //и после него добавляем html
+            $('#table tr:last').after('<tr><td>' + name +'</td><td>' + surName +'</td><td>' + p +'</td><td>' + text +'</td></tr>');
+        }
     </script>
 </head>
 <body>
@@ -46,10 +57,9 @@
             </div>
             <button type="button" class="btn btn-default" onclick="return validateName();">Submit</button>
         </form>
-        <table class="table">
+        <table class="table" id='table'>
             <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
                 <th scope="col">Пол</th>
@@ -58,21 +68,18 @@
             </thead>
             <tbody>
             <tr>
-                <th scope="row">1</th>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>M</td>
                 <td>@mdo</td>
             </tr>
             <tr>
-                <th scope="row">2</th>
                 <td>Jacob</td>
                 <td>Thornton</td>
                 <td>M</td>
                 <td>@fat</td>
             </tr>
             <tr>
-                <th scope="row">3</th>
                 <td>Larry</td>
                 <td>the Bird</td>
                 <td>M</td>
@@ -80,6 +87,7 @@
             </tr>
             </tbody>
         </table>
+        <button type="button" class="btn btn-default" onclick="addRow()">Add row</button>
     </div>
 </div>
 </body>
