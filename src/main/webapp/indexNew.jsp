@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validateName() {
+            if ($('#exampleName').val() === '') alert($('#exampleName').attr('title'));
+            if ($('#exampleSurname').val() === '') alert($('#exampleSurname').attr('title'));
+            if ($('#exampleInput').val() === '') alert($('#exampleInput').attr('title'));
+            if ($('#exampleText').val() === '') alert($('#exampleText').attr('title'));
+            return false;
+        }
+    </script>
 </head>
 <body>
 
@@ -15,25 +24,27 @@
     <h1>My First Bootstrap Page</h1>
     <p>This is some text.</p>
 </div>
+
 <div class="container pt-3">
     <div class="row">
         <form>
             <div class="form-group">
                 <label for="exampleName">Имя</label>
-                <input type="text" class="form-control" id="exampleName" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="exampleName" title="Введите свое имя" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleSurname">Фамилия</label>
-                <input type="text" class="form-control" id="exampleSurname">
+                <input type="text" class="form-control" title="Введите свою Фамилию" id="exampleSurname">
             </div>
             <div class="form-group">
                 <label for="exampleInput">Пол</label>
-                <input type="text" class="form-control" id="exampleInput">
+                <input type="text" class="form-control" title="Введите свой пол" id="exampleInput">
             </div>
             <div class="form-group">
                 <label for="exampleText">Описание</label>
-                <input type="text" class="form-control" id="exampleText">
+                <input type="text" class="form-control" title="Введите описание" id="exampleText">
             </div>
+            <button type="button" class="btn btn-default" onclick="return validateName();">Submit</button>
         </form>
         <table class="table">
             <thead class="thead-dark">
