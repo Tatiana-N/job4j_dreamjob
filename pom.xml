@@ -28,6 +28,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+        </dependency>
+
+
         <!-- ПОДСКАЖИТЕ ЧТО ЗА ЗАВИСИМОСТЬ   -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
