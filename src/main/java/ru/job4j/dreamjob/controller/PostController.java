@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
+import ru.job4j.dreamjob.store.Store;
 
 import java.time.LocalDate;
 
 @Controller
 public class PostController {
 	
-	private final PostStore store = PostStore.instOf();
+	private final Store<Post> store = PostStore.instOf();
 	
 	@GetMapping("/posts")
 	public String posts(Model model) {
@@ -43,7 +44,7 @@ public class PostController {
 	
 	@PostMapping("/updatePost")
 	public String updatePost(@ModelAttribute Post post) {
-		store.updatePost(post);
+		store.update(post);
 		return "redirect:/posts";
 	}
 }

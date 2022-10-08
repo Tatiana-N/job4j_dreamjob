@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CandidatesStore {
+public class CandidatesStore implements Store<Candidate> {
 	
 	private static final CandidatesStore INST = new CandidatesStore();
 	private final AtomicInteger id;
@@ -33,7 +33,7 @@ public class CandidatesStore {
 		return candidates.get(id);
 	}
 	
-	public Candidate updateCandidate(Candidate candidate) {
+	public Candidate update(Candidate candidate) {
 		candidate.setCreated(LocalDate.now());
 		return candidates.replace(candidate.getId(), candidate);
 	}

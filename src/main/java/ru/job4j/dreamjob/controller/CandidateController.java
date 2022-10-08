@@ -7,16 +7,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.CandidatesStore;
-import ru.job4j.dreamjob.store.PostStore;
+import ru.job4j.dreamjob.store.Store;
 
 import java.time.LocalDate;
 
 @Controller
 public class CandidateController {
 	
-	private final CandidatesStore store = CandidatesStore.instOf();
+	private final Store<Candidate> store = CandidatesStore.instOf();
 	
 	@GetMapping("/candidates")
 	public String candidates(Model model) {
@@ -39,7 +38,7 @@ public class CandidateController {
 	
 	@PostMapping("/updateCandidate")
 	public String updateCandidate(@ModelAttribute Candidate candidate) {
-		store.updateCandidate(candidate);
+		store.update(candidate);
 		return "redirect:/candidates";
 	}
 	

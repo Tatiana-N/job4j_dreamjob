@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class PostStore {
+public class PostStore implements Store<Post> {
 	
 	private static final PostStore INST = new PostStore();
 	
@@ -41,7 +41,7 @@ public class PostStore {
 		return post;
 	}
 	
-	public Post updatePost(Post post) {
+	public Post update(Post post) {
 		post.setCreated(LocalDate.now());
 		return posts.replace(post.getId(), post);
 	}
