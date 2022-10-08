@@ -14,8 +14,12 @@ import java.time.LocalDate;
 
 @Controller
 public class PostController {
-	@Autowired
-	Service<Post> postService;
+	
+	private final Service<Post> postService;
+	
+	public PostController(@Autowired Service<Post> postService) {
+		this.postService = postService;
+	}
 	
 	@GetMapping("/posts")
 	public String posts(Model model) {

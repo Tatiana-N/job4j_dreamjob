@@ -12,8 +12,12 @@ import ru.job4j.dreamjob.service.Service;
 
 @Controller
 public class CandidateController {
-	@Autowired
-	private Service<Candidate> service;
+	
+	private final Service<Candidate> service;
+	
+	public CandidateController(@Autowired Service<Candidate> service) {
+		this.service = service;
+	}
 	
 	@GetMapping("/candidates")
 	public String candidates(Model model) {
