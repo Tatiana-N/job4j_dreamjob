@@ -19,7 +19,7 @@ public class PostStore {
 		posts.put(1, new Post(1, "Junior Java Job", "сопляк", LocalDate.of(2022, 10, 1)));
 		posts.put(2, new Post(2, "Middle Java Job", "нормальный такой", LocalDate.of(2022, 10, 4)));
 		posts.put(3, new Post(3, "Senior Java Job", "уф профессор", LocalDate.of(2022, 10, 6)));
-		id = new AtomicInteger(posts.size() + 1);
+		id = new AtomicInteger(posts.size());
 	}
 	
 	public static PostStore instOf() {
@@ -35,7 +35,7 @@ public class PostStore {
 	}
 	
 	public Post add(Post post) {
-		int id = this.id.getAndIncrement();
+		int id = this.id.incrementAndGet();
 		post.setId(id);
 		posts.put(id, post);
 		return post;
