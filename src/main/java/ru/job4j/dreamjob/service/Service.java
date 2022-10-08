@@ -1,7 +1,10 @@
 package ru.job4j.dreamjob.service;
 
 import java.util.Collection;
+import javax.annotation.concurrent.ThreadSafe;
 
+
+@ThreadSafe
 public interface Service<T> {
 	Collection<T> findAll();
 	

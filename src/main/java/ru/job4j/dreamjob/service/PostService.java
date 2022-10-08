@@ -5,7 +5,9 @@ import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.Store;
 
 import java.util.Collection;
+import javax.annotation.concurrent.ThreadSafe;
 
+@ThreadSafe
 @org.springframework.stereotype.Service
 public class PostService implements Service<Post> {
 	
