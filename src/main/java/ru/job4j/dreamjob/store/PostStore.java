@@ -36,6 +36,7 @@ public class PostStore implements Store<Post> {
 	
 	public Post add(Post post) {
 		int id = this.id.incrementAndGet();
+		post.setCreated(LocalDate.now());
 		post.setId(id);
 		posts.put(id, post);
 		return post;

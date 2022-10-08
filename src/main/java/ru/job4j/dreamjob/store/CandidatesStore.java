@@ -41,6 +41,7 @@ public class CandidatesStore implements Store<Candidate> {
 	public Candidate add(Candidate candidate) {
 		int id = this.id.incrementAndGet();
 		candidate.setId(id);
+		candidate.setCreated(LocalDate.now());
 		candidates.put(id, candidate);
 		return candidate;
 	}
