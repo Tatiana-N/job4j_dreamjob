@@ -10,6 +10,7 @@ public class Post {
 	private String name;
 	private String description;
 	private LocalDate created;
+	private boolean visible;
 	
 	public Post() {
 	}

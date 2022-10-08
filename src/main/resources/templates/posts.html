@@ -62,10 +62,17 @@ https://www.thymeleaf.org/
 <!--    Внутри тега A использует тег <i он позволяет отобразить картинку из шаблонов bootstrap.-->
                         <i class="fa fa-edit"></i>
                     </a>
-                    <span th:text="${post.name}"></span>
+                    <span th:text="${post.name}">
+                    </span>
+                    <span th:if="${post.visible}">
+                        <i class="fa fa-check-square-o"></i>
+                    </span>
+                    <span th:if="${!post.visible}">
+                        <i class="fa fa-square-o"></i>
+                    </span>
                 </td>
-                <td> <span th:text="${post.description}"></span></td>
-                <td> <span th:text="${post.created}"></span></td>
+                <td><span th:text="${post.description}"></span></td>
+                <td><span th:text="${post.created}"></span></td>
             </tr>
             </tbody>
         </table>
