@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,8 +8,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!--    Стили для отображения иконки редактирования-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
@@ -19,7 +17,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <title>Работа мечты!</title>
+    <title>Работа мечты</title>
 </head>
 <body>
 <div class="container">
@@ -41,40 +39,29 @@
     </nav>
 </div>
 <div class="container">
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Каков он</th>
-                <th scope="col">Когда появился</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="candidate: ${candidates}">
-                <td><span th:text="${candidate.id}"></span></td>
-                <td>
-                    <!--    Ссылка формируется через тег th:href.
-                    Внутри ссылки нам нужно использовать данные объекта post. Поэтому текст ссылки нужно обернуть символами |. Это синтаксис Thymeleaf.
-                    https://www.thymeleaf.org/
-                    -->
-                    <a th:href="@{|/formUpdateCandidate/${candidate.id}|}">
-                        <!--    Внутри тега A использует тег <i он позволяет отобразить картинку из шаблонов bootstrap.-->
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    <span th:text="${candidate.name}"></span>
-                </td>
-                <td>
-                    <span th:text="${candidate.description}"></span>
-                </td>
-                <td>
-                    <span th:text="${candidate.created}"></span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div class="row pt-3">
+    <div class="card" style="width: 100%">
+        <div class="card-header">
+            Редактирование вакансии.
+        </div>
+        <div class="card-body">
+            <!--            Объект post мы загрузим в Model в контроллере.-->
+            <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}">
+                <!--                Поля объекта Post ассоциируются через теги Thymeleaf. th:field="*{id}"-->
+                <input type="hidden" name="id" th:field="*{id}"/>
+                <div class="form-group">
+                    <label for="name">Имя
+                        <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
+                    </label>
+                    <label for="name">Описание
+                        <input type="text" class="form-control" name="name" id="description" th:field="*{description}">
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
     </div>
+</div>
 </div>
 </body>
 </html>
