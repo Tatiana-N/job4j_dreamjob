@@ -12,6 +12,7 @@ public class Candidate {
 	private String name;
 	private String description;
 	private LocalDate created;
+	private byte[] photo;
 	
 	public Candidate(int id, String name, String description, LocalDate created) {
 		this.id = id;

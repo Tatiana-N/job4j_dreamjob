@@ -46,6 +46,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Фотография</th>
                 <th scope="col">Имя</th>
                 <th scope="col">Каков он</th>
                 <th scope="col">Когда появился</th>
@@ -54,6 +55,10 @@
             <tbody>
             <tr th:each="candidate: ${candidates}">
                 <td><span th:text="${candidate.id}"></span></td>
+                <td>
+                    <img th:width="150" th:high="150" th:src="@{|/photoCandidate/${candidate.id}|}">
+                    <span th:text="${candidate.name}"></span>
+                </td>
                 <td>
                     <!--    Ссылка формируется через тег th:href.
                     Внутри ссылки нам нужно использовать данные объекта post. Поэтому текст ссылки нужно обернуть символами |. Это синтаксис Thymeleaf.
