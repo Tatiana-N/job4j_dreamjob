@@ -15,6 +15,7 @@ import ru.job4j.dreamjob.service.AppService;
 
 import net.jcip.annotations.ThreadSafe;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @ThreadSafe
 @Controller
@@ -41,12 +42,14 @@ public class CandidateController {
 	@PostMapping("/createCandidate")
 	public String createCandidate(@ModelAttribute Candidate candidate, @RequestParam("file") MultipartFile file) throws IOException {
 		candidate.setPhoto(file.getBytes());
+		candidate.setCreated(LocalDateTime.now());
 		service.add(candidate);
 		return "redirect:/candidates";
 	}
 	
 	@PostMapping("/updateCandidate")
 	public String updateCandidate(@ModelAttribute Candidate candidate) {
+		candidate.setCreated(LocalDateTime.now());
 		service.update(candidate);
 		return "redirect:/candidates";
 	}

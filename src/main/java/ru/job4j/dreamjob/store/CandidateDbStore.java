@@ -35,7 +35,7 @@ public class CandidateDbStore implements Store<Candidate> {
 				}
 			}
 		} catch (SQLException e) {
-			log.warn("Произошло исключение при запросе FIND_ALL к базе данных: " + findById);
+			log.warn("Произошло исключение при запросе FIND_ALL к базе данных: " + findAll);
 			log.warn("Произошло исключение", e);
 		}
 		return candidates;
@@ -62,7 +62,7 @@ public class CandidateDbStore implements Store<Candidate> {
 				PreparedStatement.RETURN_GENERATED_KEYS)) {
 			st.setString(1, candidate.getName());
 			st.setString(2, candidate.getDescription());
-			st.setObject(3, Timestamp.valueOf(LocalDateTime.now()));
+			st.setObject(3, Timestamp.valueOf(candidate.getCreated()));
 			st.execute();
 			try (ResultSet it = st.getGeneratedKeys()) {
 				if (it.next()) {
@@ -81,9 +81,9 @@ public class CandidateDbStore implements Store<Candidate> {
 				PreparedStatement.RETURN_GENERATED_KEYS)) {
 			st.setString(1, candidate.getName());
 			st.setString(2, candidate.getDescription());
-			st.setObject(3, Timestamp.valueOf(LocalDateTime.now()));
+			st.setObject(3, Timestamp.valueOf(candidate.getCreated()));
 			st.setInt(4, candidate.getId());
-			st.executeQuery();
+			st.execute();
 			try (ResultSet it = st.getGeneratedKeys()) {
 				if (it.next()) {
 					candidate.setId(it.getInt(1));

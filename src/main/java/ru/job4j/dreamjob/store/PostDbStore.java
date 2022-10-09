@@ -61,7 +61,7 @@ public class PostDbStore implements Store<Post> {
 				PreparedStatement.RETURN_GENERATED_KEYS)) {
 			st.setString(1, post.getName());
 			st.setString(2, post.getDescription());
-			st.setObject(3, Timestamp.valueOf(LocalDateTime.now()));
+			st.setObject(3, Timestamp.valueOf(post.getCreated()));
 			st.setInt(4, post.getCity().getId());
 			st.execute();
 			try (ResultSet it = st.getGeneratedKeys()) {
@@ -83,7 +83,7 @@ public class PostDbStore implements Store<Post> {
 			st.setObject(3, Timestamp.valueOf(LocalDateTime.now()));
 			st.setInt(4, post.getCity().getId());
 			st.setInt(5, post.getId());
-			st.executeQuery();
+			st.executeUpdate();
 			try (ResultSet it = st.getGeneratedKeys()) {
 				if (it.next()) {
 					post.setId(it.getInt(1));

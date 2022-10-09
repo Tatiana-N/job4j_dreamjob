@@ -1,12 +1,14 @@
 package ru.job4j.dreamjob.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "created")
 public class Candidate {
 	private int id;
 	private String name;

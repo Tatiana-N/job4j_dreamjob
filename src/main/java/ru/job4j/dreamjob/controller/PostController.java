@@ -13,6 +13,8 @@ import ru.job4j.dreamjob.service.AppService;
 
 import net.jcip.annotations.ThreadSafe;
 
+import java.time.LocalDateTime;
+
 @ThreadSafe
 @Controller
 public class PostController {
@@ -40,6 +42,7 @@ public class PostController {
 	@PostMapping("/createPost")
 	public String createPost(@ModelAttribute Post post) {
 		post.setCity(cityService.findById(post.getCity().getId()));
+		post.setCreated(LocalDateTime.now());
 		postService.add(post);
 		return "redirect:/posts";
 	}
@@ -54,6 +57,7 @@ public class PostController {
 	
 	@PostMapping("/updatePost")
 	public String updatePost(@ModelAttribute Post post) {
+		post.setCreated(LocalDateTime.now());
 		post.setCity(cityService.findById(post.getCity().getId()));
 		postService.update(post);
 		return "redirect:/posts";
