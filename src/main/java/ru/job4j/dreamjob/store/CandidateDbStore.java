@@ -2,12 +2,11 @@ package ru.job4j.dreamjob.store;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.jcip.annotations.ThreadSafe;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.stereotype.Repository;
-import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Candidate;
 
-import javax.annotation.concurrent.ThreadSafe;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -98,10 +97,7 @@ public class CandidateDbStore implements Store<Candidate> {
 	}
 	
 	private Candidate createPost(ResultSet rs) throws SQLException {
-		return new Candidate(rs.getInt("id"),
-				rs.getString("name"),
-				rs.getString("description"),
-				rs.getObject("created",
+		return new Candidate(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getObject("created",
 				Timestamp.class).toLocalDateTime());
 	}
 }

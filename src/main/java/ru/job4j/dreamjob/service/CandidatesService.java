@@ -6,7 +6,7 @@ import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.store.Store;
 
 import java.util.Collection;
-import javax.annotation.concurrent.ThreadSafe;
+import net.jcip.annotations.ThreadSafe;
 
 @ThreadSafe
 @Service

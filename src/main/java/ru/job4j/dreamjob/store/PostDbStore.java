@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
-import javax.annotation.concurrent.ThreadSafe;
+import net.jcip.annotations.ThreadSafe;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

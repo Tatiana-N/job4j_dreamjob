@@ -1,7 +1,7 @@
 package ru.job4j.dreamjob.service;
 
 import java.util.Collection;
-import javax.annotation.concurrent.ThreadSafe;
+import net.jcip.annotations.ThreadSafe;
 
 
 @ThreadSafe
