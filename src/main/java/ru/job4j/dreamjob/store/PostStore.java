@@ -1,6 +1,7 @@
 package ru.job4j.dreamjob.store;
 
 import org.springframework.stereotype.Repository;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
 import java.time.LocalDate;
@@ -18,9 +19,15 @@ public class PostStore implements Store<Post> {
 	private final AtomicInteger id;
 	
 	private PostStore() {
-		posts.put(1, new Post(1, "Junior Java Job", "сопляк", LocalDate.of(2022, 10, 1)));
-		posts.put(2, new Post(2, "Middle Java Job", "нормальный такой", LocalDate.of(2022, 10, 4)));
-		posts.put(3, new Post(3, "Senior Java Job", "уф профессор", LocalDate.of(2022, 10, 6)));
+		Post post1 = new Post(1, "Junior Java Job", "сопляк", LocalDate.of(2022, 10, 1));
+		post1.setCity(new City(1, "Москва1"));
+		Post post2 = new Post(1, "Middle Java Job", "нормальный такой", LocalDate.of(2022, 10, 1));
+		post2.setCity(new City(1, "Москва2"));
+		Post post3 = new Post(1, "Senior Java Job", "сопляк", LocalDate.of(2022, 10, 1));
+		post3.setCity(new City(1, "Москва3"));
+		posts.put(1, post1);
+		posts.put(2, post2);
+		posts.put(3, post3);
 		id = new AtomicInteger(posts.size());
 	}
 	

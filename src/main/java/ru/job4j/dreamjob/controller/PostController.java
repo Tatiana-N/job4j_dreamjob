@@ -34,11 +34,13 @@ public class PostController {
 	
 	@GetMapping("/formAddPost")
 	public String addPost(Model model) {
+		model.addAttribute("cities", cityService.findAll());
 		return "addPost";
 	}
 	
 	@PostMapping("/createPost")
 	public String createPost(@ModelAttribute Post post) {
+		post.setCity(cityService.findById(post.getCity().getId()));
 		post.setCreated(LocalDate.now());
 		postService.add(post);
 		return "redirect:/posts";
@@ -48,11 +50,13 @@ public class PostController {
 	@GetMapping("/formUpdatePost/{postId}")
 	public String formUpdatePost(@PathVariable("postId") int postId, Model model) {
 		model.addAttribute("post", postService.findById(postId));
+		model.addAttribute("cities", cityService.findAll());
 		return "updatePost";
 	}
 	
 	@PostMapping("/updatePost")
 	public String updatePost(@ModelAttribute Post post) {
+		post.setCity(cityService.findById(post.getCity().getId()));
 		postService.update(post);
 		return "redirect:/posts";
 	}

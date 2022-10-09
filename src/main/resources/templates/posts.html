@@ -48,6 +48,7 @@
                 <th scope="col">Имя</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Дата появления</th>
+                <th scope="col">Город</th>
             </tr>
             </thead>
             <tbody>
@@ -73,6 +74,7 @@ https://www.thymeleaf.org/
                 </td>
                 <td><span th:text="${post.description}"></span></td>
                 <td><span th:text="${post.created}"></span></td>
+                <td><span th:text="${post.city.name}"></span></td>
             </tr>
             </tbody>
         </table>
