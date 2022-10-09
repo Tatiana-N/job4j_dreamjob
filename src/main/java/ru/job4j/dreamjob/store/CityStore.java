@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @ThreadSafe
-@Repository
+//@Repository
 public class CityStore implements Store<City> {
 	
 	private final Map<Integer, City> cities = new ConcurrentHashMap<>();
