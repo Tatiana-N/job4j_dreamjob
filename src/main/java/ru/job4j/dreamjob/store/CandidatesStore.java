@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.concurrent.ThreadSafe;
 
 @ThreadSafe
-@Repository
+//@Repository
 public class CandidatesStore implements Store<Candidate> {
 	
 	private final AtomicInteger id;
