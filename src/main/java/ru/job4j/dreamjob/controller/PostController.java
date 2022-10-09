@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
-import ru.job4j.dreamjob.service.Service;
+import ru.job4j.dreamjob.service.AppService;
 
 import java.time.LocalDate;
 import javax.annotation.concurrent.ThreadSafe;
@@ -17,10 +18,12 @@ import javax.annotation.concurrent.ThreadSafe;
 @Controller
 public class PostController {
 	
-	private final Service<Post> postService;
+	private final AppService<Post> postService;
+	private final AppService<City> cityService;
 	
-	public PostController(@Autowired Service<Post> postService) {
+	public PostController(@Autowired AppService<Post> postService, AppService<City> cityService) {
 		this.postService = postService;
+		this.cityService = cityService;
 	}
 	
 	@GetMapping("/posts")

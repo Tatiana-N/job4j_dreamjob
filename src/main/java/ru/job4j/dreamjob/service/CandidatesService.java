@@ -1,6 +1,7 @@
 package ru.job4j.dreamjob.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.store.Store;
 
@@ -8,8 +9,8 @@ import java.util.Collection;
 import javax.annotation.concurrent.ThreadSafe;
 
 @ThreadSafe
-@org.springframework.stereotype.Service
-public class CandidatesService implements Service<Candidate> {
+@Service
+public class CandidatesService implements AppService<Candidate> {
 	
 	private final Store<Candidate> store;
 	

@@ -5,7 +5,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 
 @ThreadSafe
-public interface Service<T> {
+public interface AppService<T> {
 	Collection<T> findAll();
 	
 	T add(T t);

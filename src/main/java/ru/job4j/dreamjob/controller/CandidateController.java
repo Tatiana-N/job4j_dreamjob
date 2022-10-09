@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.service.Service;
+import ru.job4j.dreamjob.service.AppService;
 
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -16,9 +16,9 @@ import javax.annotation.concurrent.ThreadSafe;
 @Controller
 public class CandidateController {
 	
-	private final Service<Candidate> service;
+	private final AppService<Candidate> service;
 	
-	public CandidateController(@Autowired Service<Candidate> service) {
+	public CandidateController(@Autowired AppService<Candidate> service) {
 		this.service = service;
 	}
 	
