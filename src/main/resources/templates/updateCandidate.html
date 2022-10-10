@@ -46,7 +46,7 @@
         </div>
         <div class="card-body">
             <!--            Объект post мы загрузим в Model в контроллере.-->
-            <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}">
+            <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}" enctype="multipart/form-data">
                 <!--                Поля объекта Post ассоциируются через теги Thymeleaf. th:field="*{id}"-->
                 <input type="hidden" name="id" th:field="*{id}"/>
                 <div class="form-group">
