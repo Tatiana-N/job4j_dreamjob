@@ -9,8 +9,19 @@ CREATE TABLE IF NOT EXISTS posts
     name        TEXT,
     description TEXT,
     created     timestamp,
-    city_id     int references cities(id)
+    city_id     int references cities (id)
 );
+
+CREATE TABLE IF NOT EXISTS users
+(
+    id       SERIAL PRIMARY KEY,
+    name     TEXT,
+    email    varchar(30),
+    password TEXT
+);
+
+ALTER TABLE users
+    ADD CONSTRAINT email_unique UNIQUE (email);
 
 CREATE TABLE IF NOT EXISTS candidates
 (
@@ -19,4 +30,3 @@ CREATE TABLE IF NOT EXISTS candidates
     description TEXT,
     created     timestamp
 );
-SELECT * FROM posts as p join cities c on c.id = p.city_id
