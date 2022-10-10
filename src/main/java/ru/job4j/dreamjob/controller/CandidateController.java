@@ -15,8 +15,11 @@ import ru.job4j.dreamjob.service.AppService;
 
 import net.jcip.annotations.ThreadSafe;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
+
+import static ru.job4j.dreamjob.util.Util.getUser;
 
 @ThreadSafe
 @Controller
@@ -29,13 +32,15 @@ public class CandidateController {
 	}
 	
 	@GetMapping("/candidates")
-	public String candidates(Model model) {
+	public String candidates(Model model, HttpSession session) {
+		model.addAttribute("user", getUser(session));
 		model.addAttribute("candidates", service.findAll());
 		return "candidates";
 	}
 	
 	@GetMapping("/formAddCandidate")
-	public String addCandidate(Model model) {
+	public String addCandidate(Model model, HttpSession session) {
+		model.addAttribute("user", getUser(session));
 		model.addAttribute("candidate", new Candidate());
 		return "addCandidate";
 	}
@@ -57,7 +62,8 @@ public class CandidateController {
 	}
 	
 	@GetMapping("/formUpdateCandidate/{candidateId}")
-	public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+	public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
+		model.addAttribute("user", getUser(session));
 		model.addAttribute("candidate", service.findById(id));
 		return "updateCandidate";
 	}
@@ -65,11 +71,6 @@ public class CandidateController {
 	@GetMapping("/photoCandidate/{candidateId}")
 	public ResponseEntity<Resource> download(@PathVariable("candidateId") Integer candidateId) {
 		Candidate candidate = service.findById(candidateId);
-		return ResponseEntity
-				.ok()
-				.headers(new HttpHeaders())
-				.contentLength(candidate.getPhoto().length)
-				.contentType(MediaType.parseMediaType("application/octet-stream"))
-				.body(new ByteArrayResource(candidate.getPhoto()));
+		return ResponseEntity.ok().headers(new HttpHeaders()).contentLength(candidate.getPhoto().length).contentType(MediaType.parseMediaType("application/octet-stream")).body(new ByteArrayResource(candidate.getPhoto()));
 	}
 }

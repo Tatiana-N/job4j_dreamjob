@@ -13,7 +13,10 @@ import ru.job4j.dreamjob.service.AppService;
 
 import net.jcip.annotations.ThreadSafe;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+
+import static ru.job4j.dreamjob.util.Util.getUser;
 
 @ThreadSafe
 @Controller
@@ -28,13 +31,15 @@ public class PostController {
 	}
 	
 	@GetMapping("/posts")
-	public String posts(Model model) {
+	public String posts(Model model, HttpSession session) {
+		model.addAttribute("user", getUser(session));
 		model.addAttribute("posts", postService.findAll());
 		return "posts";
 	}
 	
 	@GetMapping("/formAddPost")
-	public String addPost(Model model) {
+	public String addPost(Model model, HttpSession session) {
+		model.addAttribute("user", getUser(session));
 		model.addAttribute("cities", cityService.findAll());
 		return "addPost";
 	}
@@ -49,7 +54,8 @@ public class PostController {
 	
 	
 	@GetMapping("/formUpdatePost/{postId}")
-	public String formUpdatePost(@PathVariable("postId") int postId, Model model) {
+	public String formUpdatePost(@PathVariable("postId") int postId, Model model, HttpSession session) {
+		model.addAttribute("user", getUser(session));
 		model.addAttribute("post", postService.findById(postId));
 		model.addAttribute("cities", cityService.findAll());
 		return "updatePost";
