@@ -22,24 +22,32 @@ import static ru.job4j.dreamjob.util.Util.getUser;
 @Controller
 public class UserController {
 	
-	private final AppService<User> service;
+	private final UserService service;
 	
-	public UserController(@Autowired AppService<User> service) {
+	public UserController(@Autowired UserService service) {
 		this.service = service;
 	}
 	
 	@PostMapping("/registration")
-	public String registration(Model model, @ModelAttribute User user) {
-		Optional<User> regUser = ((UserService) service).registration(user);
+	public String registration(@ModelAttribute User user) {
+		Optional<User> regUser = service.add(user);
 		if (regUser.isEmpty()) {
-			model.addAttribute("message", "Пользователь с такой почтой уже существует");
-			return "redirect:/fail";
+			return "redirect:/registration?fail=true";
 		}
 		return "redirect:/success";
 	}
 	
+	@GetMapping("/registration")
+	public String registrationPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
+	                               HttpSession session) {
+		model.addAttribute("user", getUser(session));
+		model.addAttribute("fail", fail != null);
+		return "registration";
+	}
+	
 	@GetMapping("/loginPage")
-	public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail, HttpSession session) {
+	public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
+	                        HttpSession session) {
 		model.addAttribute("user", getUser(session));
 		model.addAttribute("fail", fail != null);
 		return "login";
@@ -47,7 +55,7 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String login(@ModelAttribute User user, HttpServletRequest request) {
-		Optional<User> userDb = ((UserService) service).findUserByEmailAndPwd(user.getEmail(), user.getPassword());
+		Optional<User> userDb = service.findUserByEmailAndPwd(user.getEmail(), user.getPassword());
 		if (userDb.isEmpty()) {
 			return "redirect:/loginPage?fail=true";
 		}

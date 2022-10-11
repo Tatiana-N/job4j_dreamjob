@@ -12,39 +12,31 @@ import java.util.Optional;
 
 @ThreadSafe
 @Service
-public class UserService implements AppService<User> {
+public class UserService {
 	
-	private final Store<User> store;
+	private final UserDbStore store;
 	
-	public UserService(@Autowired Store<User> store) {
+	public UserService(@Autowired UserDbStore store) {
 		this.store = store;
 	}
 	
-	@Override
 	public Collection<User> findAll() {
 		return store.findAll();
 	}
 	
-	@Override
-	public User add(User user) {
+	public Optional<User> add(User user) {
 		return store.add(user);
 	}
 	
-	@Override
 	public User findById(int id) {
 		return store.findById(id);
 	}
 	
-	@Override
 	public void update(User user) {
 		store.update(user);
 	}
 	
 	public Optional<User> findUserByEmailAndPwd(String email, String password) {
-		return ((UserDbStore) store).findUserByEmailAndPwd(email,  password);
-	}
-	
-	public Optional<User> registration(User user) {
-		return ((UserDbStore) store).registration(user);
+		return store.findUserByEmailAndPwd(email,  password);
 	}
 }

@@ -17,15 +17,14 @@ import java.util.Optional;
 @Repository
 @Slf4j
 @AllArgsConstructor
-public class UserDbStore implements Store<User> {
+public class UserDbStore {
 	private final BasicDataSource pool;
 	private final String findAll = "SELECT * FROM users";
 	private final String findById = "SELECT * FROM users WHERE users.id = ?";
-	private final String findByEmailAndPwd = "SELECT * FROM users WHERE users.email like ? and users.password like ?";
+	private final String findByEmailAndPwd = "SELECT * FROM users WHERE users.email = ? and users.password = ?";
 	private final String insert = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
 	private final String update = "UPDATE users SET name = ?, email = ?, password = ? where id = ?";
 	
-	@Override
 	public Collection<User> findAll() {
 		List<User> users = new ArrayList<>();
 		try (Connection cn = pool.getConnection(); PreparedStatement st = cn.prepareStatement(findAll)) {
@@ -42,7 +41,6 @@ public class UserDbStore implements Store<User> {
 		return users;
 	}
 	
-	@Override
 	public User findById(int id) {
 		try (Connection cn = pool.getConnection(); PreparedStatement st = cn.prepareStatement(findById)) {
 			st.setInt(1, id);
@@ -59,8 +57,7 @@ public class UserDbStore implements Store<User> {
 		return null;
 	}
 	
-	@Override
-	public User add(User user) {
+	public Optional<User> add(User user) {
 		try (Connection cn = pool.getConnection(); PreparedStatement st = cn.prepareStatement(insert,
 				PreparedStatement.RETURN_GENERATED_KEYS)) {
 			st.setString(1, user.getName());
@@ -70,17 +67,16 @@ public class UserDbStore implements Store<User> {
 			try (ResultSet it = st.getGeneratedKeys()) {
 				if (it.next()) {
 					user.setId(it.getInt(1));
-					return user;
+					return Optional.of(user);
 				}
 			}
 		} catch (SQLException e) {
 			log.warn("Произошло исключение при запросе INSERT к базе данных: " + insert);
 			log.warn("Произошло исключение", e);
 		}
-		return null;
+		return Optional.empty();
 	}
 	
-	@Override
 	public User update(User user) {
 		try (Connection cn = pool.getConnection(); PreparedStatement st = cn.prepareStatement(update,
 				PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -99,11 +95,6 @@ public class UserDbStore implements Store<User> {
 			log.warn("Произошло исключение", e);
 		}
 		return user;
-	}
-	
-	public Optional<User> registration(User user) {
-		User add = add(user);
-		return add == null ? Optional.empty() : Optional.of(add);
 	}
 	
 	public Optional<User> findUserByEmailAndPwd(String email, String password) {

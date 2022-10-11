@@ -42,19 +42,7 @@ class UserDBStoreTest {
 		userStore.add(user);
 		Assertions.assertEquals(userStore.findById(user.getId()), user);
 		User userNotRegistration = new User(0, "User Name Not Registration", "JavaTestSuccess@mail.ru", "password");
-		Assertions.assertNull(userStore.add(userNotRegistration));
-		Assertions.assertEquals(1, userStore.findAll().size());
-		Assertions.assertTrue(userStore.findAll().contains(user));
-	}
-	
-	@Test
-	public void registration() {
-		
-		User user = new User(0, "User Name Test", "JavaTestSuccess@mail.ru", "password");
-		userStore.registration(user);
-		Assertions.assertEquals(userStore.findById(user.getId()), user);
-		User userNotRegistration = new User(0, "User Name Not Registration", "JavaTestSuccess@mail.ru", "password");
-		Assertions.assertTrue(userStore.registration(userNotRegistration).isEmpty());
+		Assertions.assertTrue(userStore.add(userNotRegistration).isEmpty());
 		Assertions.assertEquals(1, userStore.findAll().size());
 		Assertions.assertTrue(userStore.findAll().contains(user));
 	}
